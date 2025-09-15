@@ -1,0 +1,66 @@
+.sun {
+    position: absolute;
+
+    h5 {
+        position: absolute;
+        transform: translateX(-50%) translateY(-50%);
+    }
+}
+
+.planet {
+    position: absolute;
+    width: calc(var(--orbit) * 2);
+    height: calc(var(--orbit) * 2);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: translateX(-50%) translateY(-50%);
+
+    h5 {
+        position: absolute;
+        left: calc(var(--orbit) * 2);
+        top: var(--orbit);
+        transform: translateX(-50%) translateY(-50%);
+    }
+}
+
+.disk {
+    position: absolute;
+    left: calc(var(--orbit) * 2);
+    top: var(--orbit);
+
+    &::before {
+        position: absolute;
+        content: "";
+        background-color: var(--color);
+        width: var(--radius);
+        height: var(--radius);
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        transform: translateX(-50%) translateY(-50%);
+    }
+
+    h5 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translateX(-50%) translateY(-50%);
+    }
+}
+
+.spin {
+    animation: spin var(--orbit-speed) linear infinite;
+
+    &.reverse {
+        animation: spin var(--orbit-speed) linear infinite reverse;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: translateX(-50%) translateY(-50%) rotate(0deg);
+    }
+
+    to {
+        transform: translateX(-50%) translateY(-50%) rotate(360deg);
+    }
+}
