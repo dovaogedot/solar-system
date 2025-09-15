@@ -48,10 +48,10 @@
 }
 
 .spin {
-    animation: spin var(--orbit-speed) linear infinite;
+    animation: spin calc(var(--orbit-speed) / var(--time)) linear infinite;
 
     &.reverse {
-        animation: spin var(--orbit-speed) linear infinite reverse;
+        animation: spin calc(var(--orbit-speed) / var(--time)) linear infinite reverse;
     }
 }
 
@@ -63,4 +63,10 @@
     to {
         transform: translateX(-50%) translateY(-50%) rotate(360deg);
     }
+}
+
+.options {
+    width: 200px;
+    display: grid;
+    grid-auto-flow: row;
 }

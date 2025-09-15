@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import "./SolarSystem.css"
 import { Planet } from "./Planet"
+import { Slider } from "./Slider"
 
 
 export const SolarSystem = (props: {
@@ -51,11 +52,17 @@ export const SolarSystem = (props: {
     const [sunX, setSunX] = useState(window.innerWidth / 2)
     const [sunY, setSunY] = useState(window.innerHeight / 2)
 
+    const [time, setTime] = useState(1)
+
     return (
         <div>
+            <div className="options">
+                <Slider label={"Time"} min={0} max={1} step={0.01} onChange={setTime} />
+            </div>
             <div className="sun" style={{
                 "--radius": sizeFunc(sun.radius) + "px",
                 "--color": sun.color,
+                "--time": time,
                 "left": sunX + "px",
                 "top": sunY + "px"
             } as React.CSSProperties}>
