@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 import "./SolarSystem.css"
 import { Planet } from "./Planet"
 import { Slider } from "./Slider"
@@ -26,22 +26,30 @@ export const SolarSystem = (props: {
             <div className="options">
                 <Slider label={"Time"} min={0} max={1} step={0.01} onChange={setTime} />
             </div>
+
             <div className="drag-area"
                 onMouseDown={e => {
-                    if (e.button == 0) dragging.current = true
+                    if (e.button == 0) {
+                        dragging.current = true
+                    }
                 }}
-                onMouseUp={e => {
-                    if (e.button == 0) dragging.current = false
+
+                onMouseUp={_ => {
+                    dragging.current = false
                 }}
+
                 onMouseMove={e => {
                     if (dragging.current == true) {
                         setSunX(x => x + e.movementX)
                         setSunY(y => y + e.movementY)
                     }
                 }}
+
                 onWheel={e => {
                     setZoom(x => x * (e.deltaY < 0 ? 1.1 : 0.9))
                 }}>
+
+
                 <div className="sun" style={{
                     "--radius": sizeFunc(sun.radius) + "px",
                     "--color": sun.color,
