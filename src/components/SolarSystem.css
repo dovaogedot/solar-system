@@ -7,7 +7,8 @@
     }
 }
 
-.planet {
+.orbit {
+    pointer-events: none;
     position: absolute;
     width: calc(var(--orbit) * 2);
     height: calc(var(--orbit) * 2);
@@ -24,20 +25,21 @@
 }
 
 .disk {
+    pointer-events: auto;
+    z-index: 10;
+    position: absolute;
+    background-color: var(--color);
+    width: var(--radius);
+    height: var(--radius);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.planet {
     position: absolute;
     left: calc(var(--orbit) * 2);
     top: var(--orbit);
-
-    &::before {
-        position: absolute;
-        content: "";
-        background-color: var(--color);
-        width: var(--radius);
-        height: var(--radius);
-        border-radius: 50%;
-        border: 2px solid rgba(255, 255, 255, 0.4);
-        transform: translateX(-50%) translateY(-50%);
-    }
 
     h5 {
         position: absolute;
@@ -67,6 +69,7 @@
 
 .drag-area {
     position: absolute;
+    z-index: -10;
     margin: 0;
     padding: 0;
     width: 100%;

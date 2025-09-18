@@ -1,0 +1,24 @@
+.property {
+    margin: 10px 0;
+
+    display: grid;
+    grid-template-areas:
+        "name name"
+        "abs rel";
+
+    &>.name {
+        font-weight: bold;
+        grid-area: name;
+        text-align: left;
+    }
+
+    &>.absolute {
+        grid-area: abs;
+        text-align: left;
+    }
+
+    &>.relative {
+        grid-area: rel;
+        text-align: right;
+    }
+}

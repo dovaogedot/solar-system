@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react"
 import "./SolarSystem.css"
 import { Planet } from "./Planet"
 import { Slider } from "./Slider"
+import { Wiki } from "./Wiki"
 
 
 export const SolarSystem = (props: {
@@ -21,25 +22,34 @@ export const SolarSystem = (props: {
 
     const [time, setTime] = useState(1)
 
+    const [selectedPlanet, setSelectedPlanet] = useState(sun.planets[3])
+    const [wikiHidden, setWikiHidden] = useState(true)
+
+    const movedRef = useRef(false)
+
     return (
         <div>
             <div className="options">
                 <Slider label={"Time"} min={0} max={1} step={0.01} onChange={setTime} />
             </div>
 
+            <Wiki planet={selectedPlanet} hidden={wikiHidden} />
+
             <div className="drag-area"
-                onMouseDown={e => {
-                    if (e.button == 0) {
-                        dragging.current = true
-                    }
+                onMouseDown={_ => {
+                    movedRef.current = false
                 }}
 
                 onMouseUp={_ => {
-                    dragging.current = false
+                    if (!movedRef.current) {
+                        setWikiHidden(true)
+                    }
                 }}
 
                 onMouseMove={e => {
-                    if (dragging.current == true) {
+                    movedRef.current = true
+
+                    if (e.buttons == 1) {
                         setSunX(x => x + e.movementX)
                         setSunY(y => y + e.movementY)
                     }
@@ -57,14 +67,21 @@ export const SolarSystem = (props: {
                     "left": sunX + "px",
                     "top": sunY + "px"
                 } as React.CSSProperties}>
-                    <div className="disk">
+                    <div className="planet">
+                        <div className="disk"></div>
                         <h5>Sun</h5>
 
                         {sun.planets.map(planet =>
                             <Planet key={planet.name}
                                 data={planet}
                                 sizeFunc={sizeFunc}
-                                distFunc={distFunc} />)}
+                                distFunc={distFunc}
+                                onDiskClick={e => {
+                                    setSelectedPlanet(planet)
+                                    setWikiHidden(false)
+                                    e.stopPropagation()
+                                }
+                                } />)}
 
                     </div>
                 </div>
